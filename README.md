@@ -6,4 +6,4 @@
 
 #### Preview:
 
-<a href = ""><img src = ""></a>
+<a href = "https://covid19-deaths-graph.vercel.app"><img src = "Screenshot_20210923-150040_Opera Mini.jpg"></a>
