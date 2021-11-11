@@ -4,21 +4,21 @@ fetch("https://api.covid19api.com/dayone/country/brazil/status/deaths")
   .then((data) => {
     
 
-    Infeccoes = data.map(function (f) {
-      return f.Cases;
+    infeccoes = data.map(function (f) {
+      return f.cases;
     });
  
-    Datas = data.map(function (f) {
-      return f.Date;
+    datas = data.map(function (f) {
+      return f.date;
     });
 
     var result = [];
 
-    Infeccoes.forEach(
-      (casos, i) => (result[i] = Infeccoes[i] - Infeccoes[i - 1])
+    infeccoes.forEach(
+      (casos, i) => (result[i] = infeccoes[i] - infeccoes[i - 1])
     );
 
-    var Mortes_dia = result.filter(function (f) {
+    var mortes_dia = result.filter(function (f) {
       return !Number.isNaN(f);
     });
     var options = {
@@ -26,7 +26,7 @@ fetch("https://api.covid19api.com/dayone/country/brazil/status/deaths")
         {
           name: "Óbitos diários",
 
-          data: Mortes_dia
+          data: mortes_dia
         }
       ],
 
@@ -56,11 +56,11 @@ fetch("https://api.covid19api.com/dayone/country/brazil/status/deaths")
       },
 
       subtitle: {
-        text: `+ ${Mortes_dia.slice(-1)[0]} mortes nas últimas 24h | Total : ${Infeccoes.slice(-1)[0]} | Última atualização :${Datas.slice(-1)[0]}`,
+        text: `+ ${mortes_dia.slice(-1)[0]} mortes nas últimas 24h | Total : ${infeccoes.slice(-1)[0]} | Última atualização :${datas.slice(-1)[0]}`,
         align: "left"
       },
 
-      labels: Datas,
+      labels: datas,
 
       xaxis: {
         type: "datetime"
