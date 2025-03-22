@@ -1,22 +1,13 @@
 fetch("https://api.covid19api.com/dayone/country/brazil/status/confirmed")
   .then((response) => response.json())
-
   .then((data) => {
-    
-    Infeccoes = data.map(function (f) {
-      return f.Cases;
-    });
-    Datas = data.map(function (f) {
-      return f.Date;
-    });
+    let Infeccoes = data.map((f) => f.Cases);
+    let Datas = data.map((f) => new Date(f.Date).getTime()); 
 
-    for (i = 0; i < Infeccoes.lenght; i++) {
+    for (let i = 0; i < Infeccoes.length; i++) { 
       console.log(Infeccoes[i]);
     }
-    
-    var result = [];
-    Infeccoes.forEach((casos, i) => (result[i] = [Infeccoes[i], Datas[i]]));
-    
+
     var options = {
       series: [
         {
@@ -27,39 +18,29 @@ fetch("https://api.covid19api.com/dayone/country/brazil/status/confirmed")
       chart: {
         type: "area",
         height: 350,
-        zoom: {
-          enabled: false
-        }
+        zoom: { enabled: false }
       },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        curve: "straight"
-      },
-
+      dataLabels: { enabled: false },
+      stroke: { curve: "straight" },
       title: {
         text: "Evolução das infecções por COVID 19 no Brasil",
         align: "left"
       },
-      subtitle: {
-        text: "Casos confirmados",
-        align: "left"
-      },
+      subtitle: { text: "Casos confirmados", align: "left" },
       labels: Datas,
       xaxis: {
         type: "datetime"
       },
-      yaxis: {
-        opposite: true
-      },
-      legend: {
-        horizontalAlign: "left"
-      }
+      yaxis: { opposite: true },
+      legend: { horizontalAlign: "left" }
     };
 
-    var chart = new ApexCharts(document.querySelector("#chart2"), options);
-    chart.render();
+    let chartElement = document.querySelector("#chart2");
+    if (chartElement) {
+      var chart = new ApexCharts(chartElement, options);
+      chart.render();
+    } else {
+      console.error("Elemento #chart2 não encontrado.");
+    }
   })
-
   .catch((error) => console.error(error));
